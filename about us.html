@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>Johnson Record - About Us</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
@@ -220,6 +221,25 @@
     display: block;
   }
 
+  /* Rollover image */
+  .artist-rollover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none; /* Hide by default */
+  }
+
+  .artist-card:hover .artist-rollover-img {
+    display: block; /* Show on hover */
+  }
+
+  .artist-card:hover .artist-img {
+    display: none; /* Hide original image on hover */
+  }
+
   /* Overlay on hover or focus */
   .artist-overlay {
     position: absolute;
@@ -281,6 +301,41 @@
     color: #fff;
   }
 
+  /* Rollover overlay for icon */
+  .rollover-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .rollover-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
+    background: rgba(233, 69, 96, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    border-radius: 12px;
+  }
+  .artist-card:hover .rollover-overlay,
+  .artist-card:focus-within .rollover-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .rollover-icon {
+    color: #fff;
+    font-size: 80px;
+    text-align: center;
+    transition: color 0.2s;
+  }
+  .rollover-icon:hover,
+  .rollover-icon:focus {
+    color: #eee;
+    outline: none;
+  }
 
   /* Accessibility: Focus outlines */
   a:focus,
@@ -350,10 +405,19 @@
 </header>
 <main>
   <h1>Meet Our Artists</h1>
-  <h3>At Johnson Records, we are committed to ensure only the best artists from Japan are avaliable for our wonderful viewers in the West Midlands</h3>
+  <h3>At Johnson Records, we are committed to ensure only the best artists from Japan are available for our wonderful viewers in the West Midlands.</h3>
   <section class="artist-grid" role="list">
     <article class="artist-card" tabindex="0" role="listitem" aria-labelledby="artist1-name" aria-describedby="artist1-desc">
-      <img src="images/14153.jpg" alt="Picture of Survive Said The Prophet" class="artist-img" />
+      <div class="rollover-container">
+        <img src="images/14153.jpg" alt="Picture of Survive Said The Prophet" class="artist-img" />
+        <!-- Rollover image for Survive Said The Prophet -->
+        <img src="images/survive-said-the-prophet-2021-360x240.jpg" alt="Rollover image of Survive Said The Prophet" class="artist-rollover-img" />
+        <div class="rollover-overlay">
+          <a href="https://survivesaidtheprophet.com/" class="rollover-icon" title="Visit Artist Page" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-user"></i>
+          </a>
+        </div>
+      </div>
       <div class="artist-overlay">
         <h2 id="artist1-name" class="artist-name">Survive Said The Prophet</h2>
         <p id="artist1-desc" class="artist-info">Creating nothing but amazing hits since 2011, mixing both Japanese and English together in perfect harmony.</p>
@@ -361,7 +425,16 @@
       </div>
     </article>
     <article class="artist-card" tabindex="0" role="listitem" aria-labelledby="artist2-name" aria-describedby="artist2-desc">
-      <img src="images/spyair-band.png" alt="Portrait of artist Luna Gray" class="artist-img" />
+      <div class="rollover-container">
+        <img src="images/spyair-band.png" alt="Portrait of artist SPYAIR" class="artist-img" />
+        <!-- Rollover image for SPYAIR -->
+        <img src="images/spyair-360x240.jpg" alt="Rollover image of SPYAIR" class="artist-rollover-img" />
+        <div class="rollover-overlay">
+          <a href="https://www.spyair.net/" class="rollover-icon" title="Visit Artist Page" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-user"></i>
+          </a>
+        </div>
+      </div>
       <div class="artist-overlay">
         <h2 id="artist2-name" class="artist-name">SPYAIR</h2>
         <p id="artist2-desc" class="artist-info">SPYAIR has been creating catchy music from Nagoya, Japan since 2005</p>
@@ -369,7 +442,16 @@
       </div>
     </article>
     <article class="artist-card" tabindex="0" role="listitem" aria-labelledby="artist3-name" aria-describedby="artist3-desc">
-      <img src="images/People_In_The_Box.png" alt="People in the Box image" class="artist-img" />
+      <div class="rollover-container">
+        <img src="images/People_In_The_Box.png" alt="People in the Box image" class="artist-img" />
+        <!-- Rollover image for People In The Box -->
+        <img src="images/PITB-rollover.jpeg" alt="Rollover image of People In The Box" class="artist-rollover-img" />
+        <div class="rollover-overlay">
+          <a href="https://peopleinthebox.com/" class="rollover-icon" title="Visit Artist Page" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-user"></i>
+          </a>
+        </div>
+      </div>
       <div class="artist-overlay">
         <h2 id="artist3-name" class="artist-name">People In The Box</h2>
         <p id="artist3-desc" class="artist-info">They have been creating masterpieces since their conception in 2003, Fukuoka, Japan</p>
@@ -391,13 +473,6 @@
 
     // Cart data stored in memory for demo
     let cart = [];
-
-    // Some demo album data for adding to cart (in real life, would come from site)
-    const demoProducts = [
-      { id: 1, name: 'Echoes of Silence Album', price: 12.99 },
-      { id: 2, name: 'Midnight Drive Singles', price: 9.99 },
-      { id: 3, name: 'Alternate Rock Sampler', price: 7.49 }
-    ];
 
     // Function to format price
     function formatPrice(price) {
@@ -426,62 +501,4 @@
         cartItemsContainer.appendChild(itemEl);
       });
       const total = cart.reduce((sum, item) => sum + item.price, 0);
-      cartTotalEl.textContent = 'Total: ' + formatPrice(total);
-      cartCount.textContent = cart.length.toString();
-    }
-
-    // Remove item event
-    cartItemsContainer.addEventListener('click', e => {
-      if (e.target.classList.contains('remove-btn')) {
-        const id = parseInt(e.target.getAttribute('data-id'), 10);
-        cart = cart.filter(item => item.id !== id);
-        renderCart();
-      }
-    });
-
-    // Toggle cart dropdown
-    function toggleCartDropdown() {
-      const isActive = cartDropdown.classList.contains('active');
-      if(isActive) {
-        cartDropdown.classList.remove('active');
-        cartDropdown.setAttribute('aria-hidden', 'true');
-      } else {
-        cartDropdown.classList.add('active');
-        cartDropdown.setAttribute('aria-hidden', 'false');
-      }
-    }
-
-    cartContainer.addEventListener('click', toggleCartDropdown);
-    cartContainer.addEventListener('keypress', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleCartDropdown();
-      }
-    });
-
-    // For demo: Add demo products to cart every 3 seconds so user can see it fill
-    // (Remove or comment out this block for production)
-    let demoIndex = 0;
-    setInterval(() => {
-      if (demoIndex < demoProducts.length) {
-        cart.push(demoProducts[demoIndex]);
-        renderCart();
-        demoIndex++;
-      }
-    }, 3000);
-
-    // Initial render
-    renderCart();
-
-    // Close cart if clicking outside
-    document.addEventListener('click', e => {
-      if (!cartContainer.contains(e.target)) {
-        cartDropdown.classList.remove('active');
-        cartDropdown.setAttribute('aria-hidden', 'true');
-      }
-    });
-  })();
-</script>
-</body>
-</html>
-
+      cart
